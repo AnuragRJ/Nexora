@@ -62,7 +62,8 @@ OPENAI_API_KEY=your_api_key
 MONGODB_URI=your_mongodb_uri
 📸 Screenshots
 
-Add your project screenshots here.
+<img width="1900" height="988" alt="image" src="https://github.com/user-attachments/assets/26ff55c0-7fc4-4436-a7a8-417fb8b8972f" />
+<img width="1895" height="935" alt="image" src="https://github.com/user-attachments/assets/86b0f938-09b8-420c-b359-148f54942f42" />
 
 🚀 Deployment
 
