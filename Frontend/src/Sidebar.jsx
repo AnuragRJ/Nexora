@@ -1,123 +1,146 @@
 import "./Sidebar.css";
 import { useContext, useEffect } from "react";
 import { MyContext } from "./MyContext.jsx";
-import {v1 as uuidv1} from "uuid";
+import { v1 as uuidv1 } from "uuid";
 
 function Sidebar() {
-    const {allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats} = useContext(MyContext);
 
+    const {
+        allThreads,
+        setAllThreads,
+        currThreadId,
+        setNewChat,
+        setPrompt,
+        setReply,
+        setCurrThreadId,
+        setPrevChats
+    } = useContext(MyContext);
+
+    // GET ALL THREADS
     const getAllThreads = async () => {
         try {
-           const user = JSON.parse(
-   localStorage.getItem("user")
-);
+            const user = JSON.parse(localStorage.getItem("user"));
+            if (!user) return;
 
-if(!user) return;
+            const response = await fetch(
+                `${import.meta.env.VITE_BACKEND_URL}/api/thread/${user._id}`
+            );
 
-const response = await fetch(
-   `${import.meta.env.VITE_BACKEND_URL}/api/thread/${user._id}`
-);
-
-const data = await response.json();
-
-setAllThreads(data);
             const res = await response.json();
-            const filteredData = res.map(thread => ({threadId: thread.threadId, title: thread.title}));
-            //console.log(filteredData);
+
+            const filteredData = res.map(thread => ({
+                threadId: thread.threadId,
+                title: thread.title
+            }));
+
             setAllThreads(filteredData);
-        } catch(err) {
+
+        } catch (err) {
             console.log(err);
         }
     };
 
     useEffect(() => {
         getAllThreads();
-    }, [currThreadId])
+    }, [currThreadId]);
 
-
+    // NEW CHAT
     const createNewChat = () => {
         setNewChat(true);
         setPrompt("");
         setReply(null);
         setCurrThreadId(uuidv1());
         setPrevChats([]);
-    }
+    };
 
+    // CHANGE THREAD
     const changeThread = async (newThreadId) => {
         setCurrThreadId(newThreadId);
 
-       try {
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_BACKEND_URL}/api/thread/${newThreadId}`
+            );
 
-    const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/thread/${newThreadId}`
-    );
+            const res = await response.json();
 
-    const res = await response.json();
+            setPrevChats(res);
+            setNewChat(false);
+            setReply(null);
 
-    console.log(res);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
-    setPrevChats(res);
-
-    setNewChat(false);
-
-    setReply(null);
-
-} catch(err) {
-
-    console.log(err);
-
-}
-
+    // DELETE THREAD
     const deleteThread = async (threadId) => {
         try {
-            const response = await fetch(`import.meta.env.VITE_BACKEND_URL/api/thread/${threadId}`, {method: "DELETE"});
+            const response = await fetch(
+                `${import.meta.env.VITE_BACKEND_URL}/api/thread/${threadId}`,
+                { method: "DELETE" }
+            );
+
             const res = await response.json();
             console.log(res);
 
-            //updated threads re-render
-            setAllThreads(prev => prev.filter(thread => thread.threadId !== threadId));
+            setAllThreads(prev =>
+                prev.filter(thread => thread.threadId !== threadId)
+            );
 
-            if(threadId === currThreadId) {
+            if (threadId === currThreadId) {
                 createNewChat();
             }
 
-        } catch(err) {
+        } catch (err) {
             console.log(err);
         }
-    }
+    };
 
     return (
         <section className="sidebar">
+
             <button onClick={createNewChat}>
-                <img src="src/assets/blacklogo.png" alt="gpt logo" className="logo"></img>
-                <span><i className="fa-solid fa-pen-to-square"></i></span>
+                <img
+                    src="src/assets/blacklogo.png"
+                    alt="logo"
+                    className="logo"
+                />
+                <span>
+                    <i className="fa-solid fa-pen-to-square"></i>
+                </span>
             </button>
 
-
             <ul className="history">
-                {
-                    allThreads?.map((thread, idx) => (
-                        <li key={idx} 
-                            onClick={(e) => changeThread(thread.threadId)}
-                            className={thread.threadId === currThreadId ? "highlighted": " "}
-                        >
-                            {thread.title}
-                            <i className="fa-solid fa-trash"
-                                onClick={(e) => {
-                                    e.stopPropagation(); //stop event bubbling
-                                    deleteThread(thread.threadId);
-                                }}
-                            ></i>
-                        </li>
-                    ))
-                }
+                {allThreads?.map((thread, idx) => (
+                    <li
+                        key={idx}
+                        onClick={() => changeThread(thread.threadId)}
+                        className={
+                            thread.threadId === currThreadId
+                                ? "highlighted"
+                                : ""
+                        }
+                    >
+                        {thread.title}
+
+                        <i
+                            className="fa-solid fa-trash"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                deleteThread(thread.threadId);
+                            }}
+                        ></i>
+                    </li>
+                ))}
             </ul>
- 
+
             <div className="sign">
-                <p>By ARJ &hearts;</p>
+                <p>By ARJ ♥</p>
             </div>
+
         </section>
-    )
+    );
 }
 
 export default Sidebar;
