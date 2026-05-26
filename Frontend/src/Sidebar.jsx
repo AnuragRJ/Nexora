@@ -15,7 +15,7 @@ function Sidebar() {
 if(!user) return;
 
 const response = await fetch(
-   `import.meta.env.VITE_BACKEND_URL/api/thread/${user._id}`
+   `${import.meta.env.VITE_BACKEND_URL}/api/thread/${user._id}`
 );
 
 const data = await response.json();
@@ -46,17 +46,27 @@ setAllThreads(data);
     const changeThread = async (newThreadId) => {
         setCurrThreadId(newThreadId);
 
-        try {import.meta.env.VITE_BACKEND_URL
-            const response = await fetch(`import.meta.env.VITE_BACKEND_URL/api/thread/${newThreadId}`);
-            const res = await response.json();
-            console.log(res);
-            setPrevChats(res);
-            setNewChat(false);
-            setReply(null);
-        } catch(err) {
-            console.log(err);
-        }
-    }   
+       try {
+
+    const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/thread/${newThreadId}`
+    );
+
+    const res = await response.json();
+
+    console.log(res);
+
+    setPrevChats(res);
+
+    setNewChat(false);
+
+    setReply(null);
+
+} catch(err) {
+
+    console.log(err);
+
+}
 
     const deleteThread = async (threadId) => {
         try {

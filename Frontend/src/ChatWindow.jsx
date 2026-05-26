@@ -55,10 +55,10 @@ function ChatWindow() {
 
         try {
 
-            const response = await fetch(
-                "import.meta.env.VITE_BACKEND_URL/api/chat",
-                options
-            );
+         const response = await fetch(
+    `${import.meta.env.VITE_BACKEND_URL}/api/chat`,
+    options
+);
 
             const res = await response.json();
 

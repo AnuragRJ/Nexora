@@ -14,8 +14,8 @@ function AuthOverlay() {
         e.preventDefault();
 
         const url = isLogin
-        ? "import.meta.env.VITE_BACKEND_URL/api/auth/login"
-        : "import.meta.env.VITE_BACKEND_URL/api/auth/signup";
+    ? `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`
+    : `${import.meta.env.VITE_BACKEND_URL}/api/auth/signup`;
 
         const body = isLogin
         ? { email, password }
