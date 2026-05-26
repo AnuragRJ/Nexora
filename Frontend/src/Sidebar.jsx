@@ -16,10 +16,15 @@ function Sidebar() {
         setPrevChats
     } = useContext(MyContext);
 
-    // GET ALL THREADS
+    // ================= GET ALL THREADS =================
     const getAllThreads = async () => {
+
         try {
-            const user = JSON.parse(localStorage.getItem("user"));
+
+            const user = JSON.parse(
+                localStorage.getItem("user")
+            );
+
             if (!user) return;
 
             const response = await fetch(
@@ -36,107 +41,165 @@ function Sidebar() {
             setAllThreads(filteredData);
 
         } catch (err) {
+
             console.log(err);
+
         }
     };
 
     useEffect(() => {
+
         getAllThreads();
+
     }, [currThreadId]);
 
-    // NEW CHAT
+
+    // ================= CREATE NEW CHAT =================
     const createNewChat = () => {
+
         setNewChat(true);
+
         setPrompt("");
+
         setReply(null);
+
         setCurrThreadId(uuidv1());
+
         setPrevChats([]);
+
     };
 
-    // CHANGE THREAD
+
+    // ================= CHANGE THREAD =================
     const changeThread = async (newThreadId) => {
+
         setCurrThreadId(newThreadId);
 
         try {
+
             const response = await fetch(
                 `${import.meta.env.VITE_BACKEND_URL}/api/thread/${newThreadId}`
             );
 
             const res = await response.json();
 
+            console.log(res);
+
             setPrevChats(res);
+
             setNewChat(false);
+
             setReply(null);
 
         } catch (err) {
+
             console.log(err);
+
         }
+
     };
 
-    // DELETE THREAD
+
+    // ================= DELETE THREAD =================
     const deleteThread = async (threadId) => {
+
         try {
+
             const response = await fetch(
                 `${import.meta.env.VITE_BACKEND_URL}/api/thread/${threadId}`,
-                { method: "DELETE" }
+                {
+                    method: "DELETE"
+                }
             );
 
             const res = await response.json();
+
             console.log(res);
 
+            // Update threads list
             setAllThreads(prev =>
-                prev.filter(thread => thread.threadId !== threadId)
+                prev.filter(
+                    thread => thread.threadId !== threadId
+                )
             );
 
+            // If deleted current chat
             if (threadId === currThreadId) {
+
                 createNewChat();
+
             }
 
         } catch (err) {
+
             console.log(err);
+
         }
+
     };
 
+
     return (
+
         <section className="sidebar">
 
             <button onClick={createNewChat}>
+
                 <img
                     src="src/assets/blacklogo.png"
-                    alt="logo"
+                    alt="gpt logo"
                     className="logo"
                 />
+
                 <span>
                     <i className="fa-solid fa-pen-to-square"></i>
                 </span>
+
             </button>
 
-            <ul className="history">
-                {allThreads?.map((thread, idx) => (
-                    <li
-                        key={idx}
-                        onClick={() => changeThread(thread.threadId)}
-                        className={
-                            thread.threadId === currThreadId
-                                ? "highlighted"
-                                : ""
-                        }
-                    >
-                        {thread.title}
 
-                        <i
-                            className="fa-solid fa-trash"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                deleteThread(thread.threadId);
-                            }}
-                        ></i>
-                    </li>
-                ))}
+            <ul className="history">
+
+                {
+                    allThreads?.map((thread, idx) => (
+
+                        <li
+                            key={idx}
+                            onClick={() =>
+                                changeThread(thread.threadId)
+                            }
+                            className={
+                                thread.threadId === currThreadId
+                                    ? "highlighted"
+                                    : ""
+                            }
+                        >
+
+                            {thread.title}
+
+                            <i
+                                className="fa-solid fa-trash"
+
+                                onClick={(e) => {
+
+                                    e.stopPropagation();
+
+                                    deleteThread(thread.threadId);
+
+                                }}
+                            ></i>
+
+                        </li>
+                    ))
+                }
+
             </ul>
 
+
             <div className="sign">
-                <p>By ARJ ♥</p>
+
+                <p>By ARJ &hearts;</p>
+
             </div>
 
         </section>
