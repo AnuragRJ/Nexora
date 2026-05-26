@@ -9,14 +9,15 @@ import chatRoutes from "./routes/chat.js";
 import cookieParser from "cookie-parser";
 const app = express();
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
     credentials: true
-}));app.use("/api/auth", authRoutes);
+}));
+app.use("/api/auth", authRoutes);
 
 app.use("/api", chatRoutes);
 
@@ -61,4 +62,3 @@ const connectDB = async() => {
 //     }
 // });
 
-console.log(process.env.GEMINI_API_KEY);
