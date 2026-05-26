@@ -17,6 +17,9 @@ app.use(cors({
     origin: process.env.FRONTEND_URL,
     credentials: true
 }));
+app.get("/", (req, res) => {
+    res.send("NEW BACKEND WORKING");
+});
 app.use("/api/auth", authRoutes);
 
 app.use("/api", chatRoutes);
