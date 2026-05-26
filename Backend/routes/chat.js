@@ -21,7 +21,7 @@ router.post("/test", async(req, res) => {
 });
 
 //Get all threads
-router.get("/thread/:userId", async(req, res) => {
+router.get("/threads/user/:userId", async(req, res) => {
     try {
         const { userId } = req.params;
 

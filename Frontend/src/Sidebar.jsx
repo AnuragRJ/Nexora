@@ -28,7 +28,7 @@ function Sidebar() {
             if (!user) return;
 
             const response = await fetch(
-                `${import.meta.env.VITE_BACKEND_URL}/api/thread/${user._id}`
+               `${import.meta.env.VITE_BACKEND_URL}/api/threads/user/${user._id}`
             );
 
             const res = await response.json();
