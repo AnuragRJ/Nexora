@@ -15,7 +15,7 @@ function Sidebar() {
 if(!user) return;
 
 const response = await fetch(
-   `http://localhost:8080/api/thread/${user._id}`
+   `import.meta.env.VITE_BACKEND_URL/api/thread/${user._id}`
 );
 
 const data = await response.json();
@@ -46,8 +46,8 @@ setAllThreads(data);
     const changeThread = async (newThreadId) => {
         setCurrThreadId(newThreadId);
 
-        try {
-            const response = await fetch(`http://localhost:8080/api/thread/${newThreadId}`);
+        try {import.meta.env.VITE_BACKEND_URL
+            const response = await fetch(`import.meta.env.VITE_BACKEND_URL/api/thread/${newThreadId}`);
             const res = await response.json();
             console.log(res);
             setPrevChats(res);
@@ -60,7 +60,7 @@ setAllThreads(data);
 
     const deleteThread = async (threadId) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/thread/${threadId}`, {method: "DELETE"});
+            const response = await fetch(`import.meta.env.VITE_BACKEND_URL/api/thread/${threadId}`, {method: "DELETE"});
             const res = await response.json();
             console.log(res);
 

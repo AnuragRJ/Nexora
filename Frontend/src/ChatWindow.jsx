@@ -56,7 +56,7 @@ function ChatWindow() {
         try {
 
             const response = await fetch(
-                "http://localhost:8080/api/chat",
+                "import.meta.env.VITE_BACKEND_URL/api/chat",
                 options
             );
 

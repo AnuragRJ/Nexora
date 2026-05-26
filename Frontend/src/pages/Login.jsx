@@ -14,7 +14,7 @@ function Login() {
         try {
 
             const response = await fetch(
-                "http://localhost:8080/api/auth/login",
+                "import.meta.env.VITE_BACKEND_URL/api/auth/login",
                 {
                     method: "POST",
                     headers: {
