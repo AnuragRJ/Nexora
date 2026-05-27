@@ -5,10 +5,11 @@ import { MyContext } from "./MyContext.jsx";
 import { useState } from 'react';
 import { v1 as uuidv1 } from "uuid";
 
-
 import AuthOverlay from "./AuthOverlay";
 
 function App() {
+
+  // ADD THIS
   const [showSidebar, setShowSidebar] = useState(false);
 
   const [prompt, setPrompt] = useState("");
@@ -32,8 +33,16 @@ function App() {
     <div className='app'>
 
       <MyContext.Provider value={providerValues}>
-        <Sidebar />
-        <ChatWindow />
+
+        <Sidebar
+          showSidebar={showSidebar}
+          setShowSidebar={setShowSidebar}
+        />
+
+        <ChatWindow
+          setShowSidebar={setShowSidebar}
+        />
+
       </MyContext.Provider>
 
       {

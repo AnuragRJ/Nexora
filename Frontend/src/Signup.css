@@ -71,13 +71,18 @@ button {
 
 @media (max-width: 768px) {
 
-  .authCard {
-    max-width: 300px;
-    padding: 24px 18px;
-  }
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        width: 260px;
+        height: 100vh;
+        z-index: 1000;
+        transition: left 0.3s ease;
+    }
 
-  .authCard h1 {
-    font-size: 28px;
-  }
+    .showSidebar {
+        left: 0;
+    }
 
 }
