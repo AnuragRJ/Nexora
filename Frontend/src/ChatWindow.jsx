@@ -4,7 +4,7 @@ import { MyContext } from "./MyContext.jsx";
 import { useContext, useState, useEffect } from "react";
 import { ScaleLoader } from "react-spinners";
 
-function ChatWindow() {
+function ChatWindow({ setShowSidebar }) {
 
     const {
         prompt,
@@ -116,6 +116,12 @@ function ChatWindow() {
         <div className="chatWindow">
 
             <div className="navbar">
+                <div
+  className="menuBtn"
+  onClick={() => setShowSidebar(prev => !prev)}
+>
+  <i className="fa-solid fa-bars"></i>
+</div>
 
                 <span>
                     Nexora 

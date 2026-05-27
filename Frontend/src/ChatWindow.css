@@ -9,7 +9,7 @@
     text-align: center;
 }
 
-/* navbar */
+/* ================= NAVBAR ================= */
 
 .navbar {
     width: 100%;
@@ -20,6 +20,12 @@
 
 .navbar span {
     margin: 1rem 2rem;
+}
+
+/* hamburger */
+
+.menuBtn {
+    display: none;
 }
 
 .userIconDiv {
@@ -37,13 +43,15 @@
     cursor: pointer;
 }
 
-/* chat input */
+/* ================= CHAT INPUT ================= */
+
 .chatInput {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 
 .inputBox {
@@ -55,21 +63,24 @@
     align-items: center;
 }
 
-input {
+.inputBox input {
     width: 100%;
     border: none;
     background-color: rgba(255, 255, 255, 0.05);
     padding: 20px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    color: white;
     border-radius: 14px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0 54px 55px,
-                rgba(0, 0, 0, 0.05) 0 -12px 30px,
-                rgba(0, 0, 0, 0.05) 0 4px 6px,
-                rgba(0, 0, 0, 0.05) 0 12px 3px,
-                rgba(0, 0, 0, 0.05) 0 -3px 5px;
+
+    box-shadow:
+        rgba(0, 0, 0, 0.05) 0 54px 55px,
+        rgba(0, 0, 0, 0.05) 0 -12px 30px,
+        rgba(0, 0, 0, 0.05) 0 4px 6px,
+        rgba(0, 0, 0, 0.05) 0 12px 3px,
+        rgba(0, 0, 0, 0.05) 0 -3px 5px;
 }
 
-input:focus {
+.inputBox input:focus {
     outline: none;
 }
 
@@ -80,6 +91,7 @@ input:focus {
     font-size: 20px;
     position: absolute;
     right: 15px;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,7 +107,7 @@ input:focus {
     color: #b4b4b4;
 }
 
-/* dropdown css */
+/* ================= DROPDOWN ================= */
 
 .dropDown {
     position: absolute;
@@ -107,7 +119,9 @@ input:focus {
     padding: 0.3rem 0.5rem;
     border-radius: 6px;
     text-align: left;
+
     z-index: 1000;
+
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -118,26 +132,55 @@ input:focus {
     cursor: pointer;
 }
 
-
 .dropDownItem:hover {
     background-color: rgba(180, 180, 180, 0.1);
     border-radius: 6px;
 }
-.chatWindow {
-  width: 100%;
-}
+
+/* ================= MOBILE ================= */
+
 @media (max-width: 768px) {
 
-  .chatWindow {
-    width: 100%;
-    padding: 10px;
-  }
+    .chatWindow {
+        padding: 10px;
+    }
 
-}
-.inputBox {
-  width: 100%;
-}
+    .navbar {
+        padding: 0 5px;
+    }
 
-.inputBox input {
-  width: 100%;
+    .navbar span {
+        margin: 1rem;
+    }
+
+    .menuBtn {
+        display: block;
+        color: white;
+        font-size: 22px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .userIconDiv {
+        margin: 1rem;
+    }
+
+    .inputBox {
+        width: 100%;
+    }
+
+    .inputBox input {
+        padding: 16px;
+        font-size: 15px;
+    }
+
+    .dropDown {
+        right: 1rem;
+        top: 4rem;
+    }
+
+    .info {
+        font-size: 0.7rem;
+    }
+
 }
