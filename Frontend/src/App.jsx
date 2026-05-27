@@ -4,11 +4,12 @@ import ChatWindow from "./ChatWindow.jsx";
 import { MyContext } from "./MyContext.jsx";
 import { useState } from 'react';
 import { v1 as uuidv1 } from "uuid";
-const [showSidebar, setShowSidebar] = useState(false);
+
 
 import AuthOverlay from "./AuthOverlay";
 
 function App() {
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const [prompt, setPrompt] = useState("");
   const [reply, setReply] = useState(null);
