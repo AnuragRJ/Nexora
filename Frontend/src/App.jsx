@@ -9,9 +9,10 @@ import AuthOverlay from "./AuthOverlay";
 
 function App() {
 
-  // ADD THIS
+  // MOBILE SIDEBAR
   const [showSidebar, setShowSidebar] = useState(false);
 
+  // CHAT STATES
   const [prompt, setPrompt] = useState("");
   const [reply, setReply] = useState(null);
   const [currThreadId, setCurrThreadId] = useState(uuidv1());
@@ -19,13 +20,25 @@ function App() {
   const [newChat, setNewChat] = useState(true);
   const [allThreads, setAllThreads] = useState([]);
 
+  // CONTEXT VALUES
   const providerValues = {
-    prompt, setPrompt,
-    reply, setReply,
-    currThreadId, setCurrThreadId,
-    newChat, setNewChat,
-    prevChats, setPrevChats,
-    allThreads, setAllThreads
+    prompt,
+    setPrompt,
+
+    reply,
+    setReply,
+
+    currThreadId,
+    setCurrThreadId,
+
+    newChat,
+    setNewChat,
+
+    prevChats,
+    setPrevChats,
+
+    allThreads,
+    setAllThreads
   };
 
   return (
@@ -45,6 +58,16 @@ function App() {
 
       </MyContext.Provider>
 
+      {/* MOBILE OVERLAY */}
+      {
+        showSidebar &&
+        <div
+          className="overlay"
+          onClick={() => setShowSidebar(false)}
+        ></div>
+      }
+
+      {/* AUTH */}
       {
         !localStorage.getItem("user") &&
         <AuthOverlay />
