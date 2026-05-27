@@ -37,6 +37,12 @@ const connectDB = async() => {
         console.log("Failed to connect with Db", err);
     }
 }
+app.get("/api/test", (req, res) => {
+    res.json({
+        success: true,
+        message: "Backend working"
+    });
+});
 
 
 // app.post("/test", async (req, res) => {
