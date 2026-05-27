@@ -123,3 +123,21 @@ input:focus {
     background-color: rgba(180, 180, 180, 0.1);
     border-radius: 6px;
 }
+.chatWindow {
+  width: 100%;
+}
+@media (max-width: 768px) {
+
+  .chatWindow {
+    width: 100%;
+    padding: 10px;
+  }
+
+}
+.inputBox {
+  width: 100%;
+}
+
+.inputBox input {
+  width: 100%;
+}
